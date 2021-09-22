@@ -7,20 +7,23 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
   constructor(private toastController: ToastController) {}
 
+  weight: number;
+  height: number;
+
   onCalculate = () => {
-    console.log("Clicou...")
-  }
+    const imc = this.weight / (this.height * this.height);
 
-  showMessage = async () => {
+    this.showMessage(`IMC = ${imc.toFixed(2)}`)
+  };
+
+  showMessage = async (msg: string) => {
     const toast = await this.toastController.create({
-      message: "Clicou",
-      duration: 3000
-    })
+      message: msg,
+      duration: 3000,
+    });
 
-    toast.present()
-  }
-
+    toast.present();
+  };
 }
