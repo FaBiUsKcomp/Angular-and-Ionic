@@ -13,17 +13,32 @@ export class HomePage {
   height: number;
 
   onCalculate = () => {
+    if (this.validateFields())
+      return this.showMessage('Preencha todos os campos!');
+
     const imc = this.weight / (this.height * this.height);
 
-    this.showMessage(`IMC = ${imc.toFixed(2)}`)
+    this.showMessage(`IMC = ${imc.toFixed(2)}`);
   };
 
   showMessage = async (msg: string) => {
+    const previousToast = await this.toastController.getTop();
+
+    if (previousToast) {
+      await this.toastController.dismiss();
+    }
+
     const toast = await this.toastController.create({
       message: msg,
-      duration: 3000,
+      buttons: [{ icon: 'close' }],
     });
 
     toast.present();
+  };
+
+  validateFields = () => {
+    if (!this.weight || !this.height) {
+      return true;
+    }
   };
 }
