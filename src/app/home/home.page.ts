@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 
@@ -13,9 +14,6 @@ export class HomePage {
   height: number;
 
   onCalculate = () => {
-    if (this.validateFields())
-      return this.showMessage('Preencha todos os campos!');
-
     const imc = this.weight / (this.height * this.height);
 
     this.showMessage(`IMC = ${imc.toFixed(2)}`);
@@ -29,7 +27,7 @@ export class HomePage {
     }
 
     const toast = await this.toastController.create({
-      color: "light",
+      color: 'light',
       message: msg,
       buttons: [{ icon: 'close' }],
     });
@@ -37,9 +35,7 @@ export class HomePage {
     toast.present();
   };
 
-  validateFields = () => {
-    if (!this.weight || !this.height) {
-      return true;
-    }
+  validFields = () => {
+    return this.weight && this.height && this.weight > 0 && this.height > 0;
   };
 }
