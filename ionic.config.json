@@ -1,0 +1,7 @@
+{
+  "name": "first-front",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
